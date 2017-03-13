@@ -35,6 +35,9 @@ channel : 货道号0~39
 未完成
 获取温度,开门等信息
 
+5.sn(callback)
+获取芯片SN
+
 */
 
 const SerialPort = require("serialport");
@@ -135,6 +138,10 @@ AutoSeller = function(comName){
     this.getStatus = function(callback){
         assert(callback)
         internalQuery("status()\r\n",callback);
+    }
+    this.getSN = function(callback){
+        assert(callback)
+        internalQuery("sn()\r\n",callback);
     }
     this.open = function(callback){
         assert(callback)

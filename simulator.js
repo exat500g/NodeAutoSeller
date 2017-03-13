@@ -88,6 +88,8 @@ const onData = function(data) {
         //DOOR为冰箱门状态,1为打开,0为关闭
         //TEMP为温度,整数(-127~127)
         serialPort.write("DATA:DOOR0,TEMP23\r\n\r\n");  
+    }else if(data.match(/sn()/)){
+        serialPort.write("DATA:002300193236470937313339\r\n");  
     }else{
         serialPort.write("DATA:unknow command\r\n");
     }

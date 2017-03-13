@@ -69,6 +69,14 @@ test = function(){
                         console.log("failed:"+message);
                     }
                 });
+            }else if(line.match(/sn()/)){
+                autoSeller.getSN(function(succ,message){
+                    if(succ){
+                        console.log("sn:"+message);
+                    }else{
+                        console.log("failed:"+message);
+                    }
+                });
             }else if(line.match(patternCodes)){
                 const CODE_NUM=40;
                 var code=new Array(CODE_NUM);
