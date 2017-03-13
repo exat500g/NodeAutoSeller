@@ -68,7 +68,7 @@ const onData = function(data) {
                 serialPort.write("QUEUED:"+state + "\r\n");
                 setTimeout(function(){
                     state = STATE.IDLE;
-                    serialPort.write("OK:process complete\r\n");
+                    serialPort.write("COMPLETED:process complete\r\n");
                 },3 + 1000*sec);
                 return;
             }

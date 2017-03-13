@@ -105,16 +105,16 @@ AutoSeller = function(comName){
         CMD指令会返回"QUEUED"表示指令以提交,"OK"表示指令成功完成,"ERR"表示失败
         */
         const patternData = /^DATA:(.*)/
-        const patternOk = /^OK:(.*)/
-        const patternStart = /^QUEUED:(.*)/
+        const patternCompleted = /^COMPLETED:(.*)/
+        const patternQueued = /^QUEUED:(.*)/
         const patternErr = /^ERR:(.*)/
         const patternResult = /.*:(.*)/
         var result=data.match(patternResult);
         if( data.match(patternData)) {
             callQueryCb(true,result[1]);
-        }else if(data.match(patternOk)){
+        }else if(data.match(patternCompleted)){
             callCmdCb(true,result[1]);
-        }else if(data.match(patternStart)){
+        }else if(data.match(patternQueued)){
             if(cmdCallback){
                 cmdCallback.enable=false;
             }
