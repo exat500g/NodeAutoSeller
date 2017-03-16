@@ -148,9 +148,10 @@ AutoSeller = function(comName){
         serialPort.open(function(err){
             if(err){
                 callback(false,err);
+                return;
             }
             serialPort.on('data', onData);
-            internalQuery("state()\r\n",callback);
+            callback(true,"");
         });
     }
     this.close = function(callback){

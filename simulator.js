@@ -69,7 +69,9 @@ const onData = function(data) {
                 setTimeout(function(){
                     state = STATE.IDLE;
                     serialPort.write("COMPLETED:process complete\r\n");
+                    console.log("SIMULATOR:process completed");
                 },3 + 1000*sec);
+                console.log("SIMULATOR:processing "+ch+","+sec);
                 return;
             }
         }
