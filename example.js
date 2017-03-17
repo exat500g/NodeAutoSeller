@@ -33,6 +33,7 @@ test = function(){
             console.log("failed:"+message);
             return;
         }
+        autoSeller.debugLog=1;
         console.log("connect successful");
         rl.on('line',function(line){
             if(line.match(patternState)){
@@ -69,7 +70,7 @@ test = function(){
                         console.log("failed:"+message);
                     }
                 });
-            }else if(line.match(/sn()/)){
+            }else if(line.match(/sn\(\)/)){
                 autoSeller.getSN(function(succ,message){
                     if(succ){
                         console.log("sn:"+message);
@@ -77,7 +78,11 @@ test = function(){
                         console.log("failed:"+message);
                     }
                 });
-            }else if(line.match(patternCodes)){
+            }else if(line.match(/debug\((.*)\)/)){
+                const ret=line.match(/debug\((.*)\)/);
+                console.log("debug.send:"+ret[1]);
+                autoSeller.debugWrite(ret[1]);
+           }else if(line.match(patternCodes)){
                 const CODE_NUM=40;
                 var code=new Array(CODE_NUM);
                 var getCodes=function(externCodeArray,userCallback){

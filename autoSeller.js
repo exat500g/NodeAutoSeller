@@ -53,6 +53,10 @@ AutoSeller = function(comName){
         enable:false,
         call:null,
     };
+    var debugLog = 0;
+    this.setDebugLog = function(d){
+        debugLog=d;
+    }
     
     const generateCallWithCallback = function(externCallback){
         const func=function(data,userCallback){
@@ -98,6 +102,9 @@ AutoSeller = function(comName){
         if(data){
             data=data.replace("\n","");
             data=data.replace("\r","");
+        }
+        if(debugLog){
+            console.log("DataReceived: "+data);
         }
         /*
         为了不让state干扰process,将指令分为CMD类型和DATA类型,使用不同的callback
@@ -151,11 +158,16 @@ AutoSeller = function(comName){
                 return;
             }
             serialPort.on('data', onData);
+            serialPort.write("\r\n");
             callback(true,"");
         });
     }
     this.close = function(callback){
         serialPort.close(callback);
+    }
+    this.debugWrite = function(data){
+        debugLog=1;
+        serialPort.write(data+"\r\n");
     }
     
     var serialPort = new SerialPort(comName,{autoOpen:false,baudrate: 115200, parser:SerialPort.parsers.readline('\r')});
